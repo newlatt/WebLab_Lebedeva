@@ -1,0 +1,6 @@
+2020-12-10T21:35:30.7914720+03:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2020-12-10T21:35:30.8174035+03:00  [INF] Hosting environment: "Development" (c3307c92)
+2020-12-10T21:35:30.8176192+03:00  [INF] Content root path: "E:\ПОИС\ВТ\WebLab1\WebLab1" (b5d60022)
+2020-12-10T23:18:26.2730961+03:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2020-12-10T23:18:26.2901254+03:00  [INF] Hosting environment: "Development" (c3307c92)
+2020-12-10T23:18:26.2903080+03:00  [INF] Content root path: "E:\ПОИС\ВТ\WebLab1\WebLab1" (b5d60022)

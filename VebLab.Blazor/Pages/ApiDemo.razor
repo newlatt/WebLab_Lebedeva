@@ -1,0 +1,45 @@
+﻿@page "/apidemo"
+@inject IHttpClientFactory clientFactory
+@using WebLab.Blazor.Data
+@using System.Text.Json;
+@using VebLab.Blazor.Components
+
+<div class="container">
+    <FoodsList @bind-Foods="foods" SelectedObjectChanged="ShowDetails"></FoodsList>
+    <FoodDetails @bind-Food="SelectedFood"></FoodDetails>
+    
+</div>
+
+@code {
+    [Parameter]
+    public IEnumerable<FoodListViewModel> foods { get; set; }
+    //44392
+    string apiBaseAddress = "https://localhost:44310/Api/Foods";
+    protected override async Task OnInitializedAsync()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, apiBaseAddress);
+        var client = clientFactory.CreateClient();
+        var response = await client.SendAsync(request);//client.GetAsync(apiBaseAddress);
+        if (response.IsSuccessStatusCode)
+        {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            foods = await JsonSerializer.DeserializeAsync<IEnumerable<FoodListViewModel>>
+            (responseStream,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+    }
+    [Parameter]
+    public FoodDetailsViewModel SelectedFood { get; set; }
+    private async Task ShowDetails(int id)
+    {
+        var client = clientFactory.CreateClient();
+        var response = await client.GetAsync(apiBaseAddress + $"/{id}");
+        if (response.IsSuccessStatusCode)
+        {
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            SelectedFood = await JsonSerializer.DeserializeAsync<FoodDetailsViewModel>(responseStream);
+        }
+    }
+}
+
+

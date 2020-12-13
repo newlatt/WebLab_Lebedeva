@@ -1,0 +1,23 @@
+﻿@using WebLab.Blazor.Data
+@if (Food != null)
+{
+    <img src="@imageSrc" class="img-thumbnail" width="150" />
+    <div>
+        <p>@Food.FoodName - @Food.Description</p>
+        <div class="badge badge-info ">@Food.Weight кг </div>
+    </div>
+}
+@code {
+    [Parameter]
+    public FoodDetailsViewModel Food { get; set; }
+    [Parameter]
+    public EventCallback<FoodDetailsViewModel> FoodChanged { get; set; }
+    string imageSrc
+    {
+        get
+        {
+            //44392
+            return $"https://localhost:44310/images/{Food.Image}";
+        }
+    }
+}
